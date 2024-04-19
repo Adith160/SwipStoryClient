@@ -1,9 +1,9 @@
-.mainDiv{
+.mainDiv {
     position: absolute;
     height: 100vh;
     width: 98.7vw;
     top: 0;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.8);
     z-index: 100;
     overflow: hidden;
     display: flex;
@@ -11,7 +11,7 @@
     align-items: center;
 }
 
-.mainContainer{
+.mainContainer {
     height: 65%;
     width: 40%;
     background-color: white;
@@ -23,21 +23,21 @@
     position: relative;
 }
 
-.close{
+.close {
     position: absolute;
     top: 10%;
     color: red;
-    right:10%;
+    right: 10%;
     height: 10%;
     width: 5.5%;
     cursor: pointer;
 }
 
-.mainContainer h3{
+.mainContainer h3 {
     margin-bottom: 5%;
 }
 
-.mainContainer form{
+.mainContainer form {
     width: 65%;
     height: 45%;
     display: flex;
@@ -47,7 +47,7 @@
     margin-top: 5%;
 }
 
-.mainContainer button{
+.mainContainer button {
     width: 60%;
     margin-left: 20%;
     height: 18%;
@@ -58,30 +58,86 @@
     cursor: pointer;
 }
 
-.inputDiv{
+.inputDiv {
     height: 18%;
     display: flex;
     justify-content: space-between;
     position: relative;
 }
 
-.inputDiv input{
+.inputDiv input {
     width: 63%;
     border: 1.6px solid black;
     padding: 2%;
 }
 
-.viewImg{
+.viewImg {
     position: absolute;
     right: 2%;
     top: 20%;
     cursor: pointer;
 }
 
-.mainContainer span{
+.mainContainer span {
     color:  red;
     font-size: 0.7em;
     font-weight: 800;
     width: 100%;
     text-align: center;
+}
+
+/* Media Queries */
+@media only screen and (max-width: 768px) {
+    .mainContainer {
+        height: 80%;
+        width: 80%;
+    }
+    
+    .mainContainer h3{
+        font-size: 1.6em;
+        font-weight: 800;
+    }
+
+    .close {
+        top: 5%;
+        right: 5%;
+        height: 5%;
+        width: 11%;
+    }
+    
+    .mainContainer form {
+        width: 80%;
+        height: 40%;
+        margin-top: 10%;
+        font-size: 1.2em;
+    }
+    
+    .mainContainer button {
+        width: 70%;
+        margin-left: 15%;
+        height: 20%;
+    }
+    
+    .inputDiv{
+        flex-direction: column;
+        height: 27%;
+    }
+
+    .inputDiv input {
+        width: 100%;
+        height: 47%;
+        font-size: 0.9em;
+    }
+    
+    .viewImg {
+        top: 44%;
+        right: 0%;
+        width: 10%;
+        height: 50%;
+    }
+
+    .mainContainer button {
+       height: 15%;
+       color: white;
+    }
 }

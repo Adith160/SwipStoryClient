@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./AddStory.module.css";
 import { IoCloseCircleOutline } from "react-icons/io5";
+import { toast } from "react-toastify";
 
 function AddStory() {
   const [slides, setSlides] = useState([
@@ -9,6 +10,8 @@ function AddStory() {
     { name: "Slide 3", heading: "", description: "", imageUrl: "", category: "" }
   ]);
   const [selectedSlide, setSelectedSlide] = useState(0);
+
+  const categories = ['food', 'health and fitness', 'travel', 'movies', 'education'];
 
   const addSlide = () => {
     if (slides.length < 6) {
@@ -35,11 +38,44 @@ function AddStory() {
     setSelectedSlide(prevSlide => Math.max(prevSlide - 1, 0));
   };
 
+  const handleCloseSlide = (index) => {
+    setSlides(prevSlides => {
+      const updatedSlides = prevSlides.filter((slide, i) => i !== index);
+      const newSelectedSlide = Math.min(selectedSlide, updatedSlides.length - 1);
+      const orderedSlides = updatedSlides.map((slide, i) => ({
+        ...slide,
+        name: `Slide ${i + 1}`
+      }));
+      setSelectedSlide(newSelectedSlide);
+      return orderedSlides;
+    });
+  };
+
+  const validateSlides = () => {
+    if (slides.some(slide => !slide.heading || !slide.description || !slide.imageUrl || !slide.category)) {
+      toast.error("All fields of all slides must be filled.", { autoClose: 2000 });
+      return false;
+    }
+    const slideCategory = slides[0].category;
+    if (slides.some(slide => slide.category !== slideCategory)) {
+      toast.error("All slides should have the same category.", { autoClose: 2000 });
+      return false;
+    }
+    return true;
+  };
+
+  const handlePost = () => {
+    if (validateSlides()) {
+      localStorage.setItem("slidesData", JSON.stringify(slides));
+      toast.success("Slides data stored successfully.", { autoClose: 2000 });
+    }
+  };
+
   return (
     <div className={styles.mainDiv}>
       <div className={styles.mainContainer}>
         <IoCloseCircleOutline className={styles.close} />
-        <span className={styles.message}> olasjo</span>
+        <p className={styles.message}> Add up to 6 slides </p>
         <div className={styles.slideHeadingsDiv}>
           {slides.map((slide, index) => (
             <div 
@@ -48,6 +84,7 @@ function AddStory() {
               onClick={() => setSelectedSlide(index)}
             >
               {slide.name}
+              {index > 2 && <IoCloseCircleOutline className={styles.closeSlide} onClick={() => handleCloseSlide(index)} />}
             </div>
           ))}
           {slides.length < 6 && (
@@ -68,9 +105,15 @@ function AddStory() {
             <b>Image :</b> <input placeholder="Add Image url" value={slides[selectedSlide].imageUrl} onChange={e => handleInputChange("imageUrl", e.target.value)} />
           </div>
           <div className={styles.inputDiv}>
-            <b>Category :</b> <input placeholder="Select category" value={slides[selectedSlide].category} onChange={e => handleInputChange("category", e.target.value)} />
+            <b>Category :</b> 
+            <select value={slides[selectedSlide].category} onChange={e => handleInputChange("category", e.target.value)}>
+              <option value="" disabled>Select category</option>
+              {categories.map((category, index) => (
+                <option key={index} value={category}>{category}</option>
+              ))}
+            </select>
           </div>
-          <button>Post</button>
+          <button type="button" onClick={handlePost}>Post</button>
         </form>
         <div className={styles.btnDiv}>
           <button className={styles.green} onClick={goToPrevSlide}>Previous</button>

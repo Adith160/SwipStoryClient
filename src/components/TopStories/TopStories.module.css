@@ -53,6 +53,7 @@
     rgba(0, 0, 0, 0.8)
   );
   font-size: 0.8em;
+  text-align: left;
 }
 
 .storyDiv b {
@@ -70,4 +71,36 @@
   font-weight: 600;
   font-size: 1.4em;
   cursor: pointer;
+}
+
+/* Media Queries */
+@media only screen and (max-width: 768px) {
+  .mainDiv {
+    margin: 5% 0 0 3%;
+  }
+
+  .mainDiv h2{
+    padding: 2vh 0;
+  }
+
+  .storyDiv {
+    width: 90vw;
+    height: 57vh;
+  }
+
+  .mainDiv p {
+    margin: 5% 0 0 30%;
+  }
+
+  .mainDiv button {
+    margin: 4% 0 0 32%;
+    width: 35%;
+    height: 4.5vh;
+  }
+
+  .storyDiv span{
+    height: 17%;
+    font-size: 1em;
+    text-align: left;
+  }
 }

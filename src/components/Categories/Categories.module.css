@@ -1,4 +1,4 @@
-.mainDiv{
+.mainDiv {
     display: flex;
     margin: 2% 0 -1% 5%;
     gap: 2%;
@@ -7,7 +7,7 @@
     overflow-y: hidden;
 }
 
-.catDiv{
+.catDiv {
     cursor: pointer;
     max-height: 22vh;
     width: 150px;
@@ -16,7 +16,7 @@
     border-radius: 4vh;
 }
 
-.catDiv img{
+.catDiv img {
     height: 100%;
     width: 100%;
     border-radius: 3.2vh;
@@ -31,4 +31,30 @@
     color: white;
     font-size: 1.2em;
     font-weight: 500;
+}
+
+
+/* Media Queries */
+@media only screen and (max-width: 768px) {
+    .mainDiv {
+        margin: 2% 0 -1% 2%;
+        gap: 0%;
+        overflow-x: auto; /* Make the mainDiv scrollable horizontally */
+        width: 100vw;
+        height: 11vh;
+    }
+    
+    .catDiv {
+        width: 260px;
+        height: 100%;
+        margin-right: 15px;
+    }
+    .catDiv img{
+        width: 160px;
+        height: 100%;
+    }
+
+    .catDiv::-webkit-scrollbar, .mainDiv::-webkit-scrollbar {
+        display: none;
+    }
 }

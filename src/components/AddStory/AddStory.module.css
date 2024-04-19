@@ -1,17 +1,17 @@
-.mainDiv{
+.mainDiv {
     position: absolute;
     height: 100vh;
     width: 98.7vw;
     top: 0;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 100;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.mainContainer{
+  }
+  
+  .mainContainer {
     height: 80%;
     width: 48%;
     background-color: white;
@@ -21,28 +21,28 @@
     justify-content: center;
     align-items: center;
     position: relative;
-}
-
-.close{
+  }
+  
+  .close {
     position: absolute;
-    top: 3%;
+    top: 0;
     color: red;
-    right:5%;
+    right: 1%;
     height: 10%;
-    width: 5.5%;
+    width: 5%;
     cursor: pointer;
-}
-
-.message{
+  }
+  
+  .message {
     position: absolute;
-    top: 3%;
-    right:5%;
+    top: 3.5%;
+    right: 7%;
     height: 10%;
-    width: 5.5%;
     color: black;
-}
-
-.mainContainer form{
+    font-size: 0.8em;
+  }
+  
+  .mainContainer form {
     width: 85%;
     height: 65%;
     display: flex;
@@ -51,66 +51,79 @@
     justify-content: space-between;
     margin-top: 5%;
     margin-bottom: -8%;
-}
-
-.inputDiv{
+  }
+  
+  .inputDiv {
     height: 18%;
     display: flex;
     justify-content: space-between;
     position: relative;
-}
-
-.inputDiv input{
+  }
+  
+  .inputDiv input,
+  .inputDiv select {
     width: 60%;
     border: 1.6px solid black;
     padding: 2%;
     height: 22%;
     margin-right: 7%;
-}
-
-.inputDiv textarea{
+  }
+  
+  .inputDiv select {
+    width: 64%;
+    color: black;
+    font-size: 0.8em;
+    height: 5vh;
+    padding: 1%;
+  }
+  
+  .inputDiv option {
+    font-weight: 800;
+  }
+  
+  .inputDiv textarea {
     width: 60%;
     border: 1.6px solid black;
     padding: 2%;
     height: 70%;
     margin-right: 7%;
-}
-
-.mainContainer span{
-    color:  red;
+  }
+  
+  .mainContainer span {
+    color: red;
     font-size: 0.7em;
     font-weight: 800;
     width: 100%;
     text-align: center;
-}
-
-.mainContainer form button{
-  margin-left: 72%;  
-  margin-top: 1%;
-  width: 28%;
-  height: 14%;
-  border-radius: 2vh;
-  border: none;
-  background-color: #FF7373;
-  font-weight: 800;
-  cursor: pointer;
-  color: black;
-  border-radius: 4vh;
-  color: white;
-}
-
-.btnDiv{
+  }
+  
+  .mainContainer form button {
+    margin-left: 72%;
+    margin-top: 1%;
+    width: 28%;
+    height: 12%;
+    border-radius: 2vh;
+    border: none;
+    background-color: #ff7373;
+    font-weight: 800;
+    cursor: pointer;
+    color: black;
+    border-radius: 4vh;
+    color: white;
+  }
+  
+  .btnDiv {
     position: absolute;
     display: flex;
     justify-content: space-between;
     width: 36%;
     padding-top: 5%;
-    height: 7.5%;
-    bottom: 6.5%;
+    height: 7%;
+    bottom: 7.1%;
     left: 12%;
-}
-
-.btnDiv button{
+  }
+  
+  .btnDiv button {
     width: 47%;
     height: 98%;
     border-radius: 2vh;
@@ -120,27 +133,27 @@
     color: black;
     border-radius: 4vh;
     color: white;
-}
-
-.green{
-    background-color: #7EFF73;
-}
-
-.blue{
-    background-color: #73ABFF;
-}
-
-.slideHeadingsDiv {
+  }
+  
+  .green {
+    background-color: #7eff73;
+  }
+  
+  .blue {
+    background-color: #73abff;
+  }
+  
+  .slideHeadingsDiv {
     width: 85%;
     display: flex;
     gap: 2%;
     margin-top: -5%;
-   }
-
-.slide{
+  }
+  
+  .slide {
     height: 7vh;
-    width: 12%; 
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+    width: 12%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 1vh;
     display: flex;
     align-items: center;
@@ -148,10 +161,42 @@
     font-size: 0.8em;
     font-weight: 800;
     cursor: pointer;
-}
-
-.selectedSlide {
-    border: 1px solid #73ABFF;
+    position: relative;
   }
   
-
+  .closeSlide {
+    position: absolute;
+    top: 0;
+    color: red;
+    right: 1%;
+    cursor: pointer;
+  }
+  
+  .selectedSlide {
+    border: 1px solid #73abff;
+  }
+  
+  /* Media Queries */
+  @media only screen and (max-width: 768px) {
+    .mainContainer {
+      width: 90%;
+    }
+    
+    .inputDiv input,
+    .inputDiv select,
+    .inputDiv textarea {
+      width: 100%;
+      margin-right: 0;
+    }
+    
+    .mainContainer form button {
+      margin-left: 0;
+      width: 100%;
+    }
+    
+    .btnDiv {
+      width: 90%;
+      left: 5%;
+    }
+  }
+  
