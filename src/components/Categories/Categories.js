@@ -9,7 +9,7 @@ import IndiaImg from '../../assets/images/IndiaCat.png'
 function Categories() {
   return (
     <div className={styles.mainDiv}>
-        <div className={styles.catDiv}>
+        <div className={styles.catDiv} style={{border:'3px solid #00ACD2'}}>
             <img src={AllImg} alt='all'/>
             <span>All</span>
         </div>

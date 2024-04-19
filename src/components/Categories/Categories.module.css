@@ -13,6 +13,7 @@
     width: 150px;
     box-sizing: border-box;
     position: relative;
+    border-radius: 4vh;
 }
 
 .catDiv img{

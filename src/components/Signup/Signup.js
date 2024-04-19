@@ -33,6 +33,7 @@ function Signup() {
               />
             )}
           </div>
+          <span>Please enter valid username</span>
           <button>Register</button>
         </form>
       </div>
