@@ -1,0 +1,9 @@
+.mainDiv{
+    padding-bottom: 10vh;
+    overflow: hidden;
+    overflow-x: hidden;
+    height: 84vh;
+    overflow-y: scroll;
+}
+
+

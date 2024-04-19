@@ -1,0 +1,33 @@
+.mainDiv{
+    display: flex;
+    margin: 2% 0 -1% 5%;
+    gap: 2%;
+    max-height: max-content;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.catDiv{
+    cursor: pointer;
+    max-height: 22vh;
+    width: 150px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.catDiv img{
+    height: 100%;
+    width: 100%;
+    border-radius: 3.2vh;
+}
+
+.catDiv span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    color: white;
+    font-size: 1.2em;
+    font-weight: 500;
+}

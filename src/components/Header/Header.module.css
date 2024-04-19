@@ -1,0 +1,47 @@
+.mainDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1vh 2vw 1vh 2vw;
+    box-shadow:  0 5px 10px -10px;
+}
+
+.mainDiv span{
+    font-size: 1.7em;
+    font-weight: 600;
+    cursor: default;
+}
+
+.rightDiv{
+    max-width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5%;
+}
+
+.mainDiv button{
+    width: 10vw;
+    height: 5vh;
+    border: none;
+    border-radius: 3vh;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    font-size: 0.8em;
+}
+
+.clrPink{
+    background-color: #FF7373;
+    padding: 2% 0;
+}
+
+.mainDiv img{
+    border-radius: 50%;
+    height: 6vh;
+    cursor: pointer;
+}
+
+.clrBlue{
+    background-color: #73ABFF;
+}

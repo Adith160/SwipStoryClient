@@ -1,0 +1,73 @@
+.mainDiv {
+  height: max-content;
+  margin: 5% 0 0 3%;
+}
+
+.mainDiv h2 {
+  font-weight: 900;
+  text-align: center;
+  font-size: 1.4em;
+}
+
+.storyContainer {
+  display: flex;
+  gap: 3%;
+  flex-wrap: wrap;
+  margin-left: 2%;
+  cursor: pointer;
+  text-align: center;
+}
+
+.mainDiv p {
+  margin: 5% 0 0 42%;
+  color: #8e8e8e;
+  font-weight: 600;
+  font-size: 1.4em;
+}
+
+.storyDiv {
+  height: 65vh;
+  width: 20vw;
+  margin-top: 2%;
+  position: relative;
+}
+
+.storyDiv img {
+  height: 100%;
+  width: 100%;
+  border-radius: 1.5vh;
+}
+
+.storyDiv span {
+  position: absolute;
+  left: 0;
+  bottom: 0%;
+  width: 88%;
+  padding: 6% 6%;
+  color: white;
+  border-bottom-left-radius: 1.5vh;
+  border-bottom-right-radius: 1.5vh;
+  background-image: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9),
+    rgba(0, 0, 0, 0.8)
+  );
+  font-size: 0.8em;
+}
+
+.storyDiv b {
+  font-size: 1.4em;
+}
+
+.mainDiv button {
+  margin: 4% 0 0 42%;
+  width: 15%;
+  border-radius: 3vh;
+  border: none;
+  background-color: #ff7373;
+  color: white;
+  height: 6vh;
+  font-weight: 600;
+  font-size: 1.4em;
+  cursor: pointer;
+}
