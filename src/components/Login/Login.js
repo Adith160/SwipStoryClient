@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import styles from "./Signup.module.css";
+import styles from "../Signup/Signup.module.css";
 import { BiSolidHide } from "react-icons/bi";
 import { BiShow } from "react-icons/bi";
 import { IoCloseCircleOutline } from "react-icons/io5";
 
-function Signup() {
+function Login() {
   const [ShowPassword, SetShowPassword] = useState(false);
   return (
     <div className={styles.mainDiv}>
       <div className={styles.mainContainer}>
         <IoCloseCircleOutline className={styles.close} />
-        <h3>Register to SwipTory</h3>
+        <h3>Login to SwipTory</h3>
         <form>
           <div className={styles.inputDiv}>
             <b>Username</b> <input placeholder="Enter username"></input>
@@ -33,11 +33,11 @@ function Signup() {
               />
             )}
           </div>
-          <button>Register</button>
+          <button>Login</button>
         </form>
       </div>
     </div>
   );
 }
 
-export default Signup;
+export default Login;
