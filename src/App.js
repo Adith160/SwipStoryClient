@@ -1,10 +1,11 @@
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
-import Login from "./components/Login/Login";
-import Signup from "./components/Signup/Signup";
-import AddStory from './components/AddStory/AddStory'
+// import Login from "./components/Login/Login";
+// import Signup from "./components/Signup/Signup";
+// import AddStory from './components/AddStory/AddStory'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ViewStory from "./components/ViewStory/ViewStory";
 
 function App() {
   const show = false;
@@ -13,10 +14,10 @@ function App() {
       <ToastContainer />
        <Header />
        <Home />
-       {show ?<>
+       {/* {show ?<>
        <Signup/>
-       <Login /></>:<AddStory />}
-       
+       <Login /></>:<AddStory />} */}
+       <ViewStory />
     </div>
   );
 }

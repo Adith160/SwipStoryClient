@@ -23,7 +23,7 @@
     position: relative;
   }
   
-  .close {
+  .close, .heading2 {
     position: absolute;
     top: 0;
     color: red;
@@ -180,6 +180,26 @@
   @media only screen and (max-width: 768px) {
     .mainContainer {
       width: 90%;
+      flex-direction: row;
+    }
+
+    .slideHeadingsDiv{
+      flex-direction: column;
+      width: 20%;
+      justify-content: space-between;
+      height: 60%;
+      margin-right: 5%;
+      margin-left: 2%;
+    }
+
+    .slide{
+      width: 100%;
+    }
+
+    .inputDiv{
+      flex-direction: column;
+      justify-content: space-evenly;
+      width: 90%;
     }
     
     .inputDiv input,
@@ -187,16 +207,54 @@
     .inputDiv textarea {
       width: 100%;
       margin-right: 0;
+      height: 26%;
+    }
+
+    .inputDiv textarea {
+      height: 60%;
     }
     
+    .inputDiv select {
+      height: 40%;
+      width: 105%;
+    }
+
+   .mainContainer b{
+    font-size: 1.2em;
+    font-weight: 800;
+   }
+
     .mainContainer form button {
-      margin-left: 0;
-      width: 100%;
+      margin-left: 7%;
+      margin-top: 5%;
+      width: 55%;
+      height: 9%;
+      font-size: 1em;
     }
     
     .btnDiv {
       width: 90%;
       left: 5%;
     }
+
+    .textareaDiv{
+      height: 22%;
+    }
+
+    .close{
+      width: 10%;
+      right: 5%;
+      top: 3%;
+    }
+
+    .heading2{
+      right: 18%;
+      top: 10%;
+      color: black;
+      width: 60%;
+      font-size: 1.6em;
+    }
+
+
   }
   

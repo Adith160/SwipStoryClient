@@ -4,6 +4,7 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
 
 function AddStory() {
+  const isMobile = true; 
   const [slides, setSlides] = useState([
     { name: "Slide 1", heading: "", description: "", imageUrl: "", category: "" },
     { name: "Slide 2", heading: "", description: "", imageUrl: "", category: "" },
@@ -11,7 +12,7 @@ function AddStory() {
   ]);
   const [selectedSlide, setSelectedSlide] = useState(0);
 
-  const categories = ['food', 'health and fitness', 'travel', 'movies', 'education'];
+  const categories = ['Medical', 'Fruits', 'World', 'India', 'Movies'];
 
   const addSlide = () => {
     if (slides.length < 6) {
@@ -75,7 +76,7 @@ function AddStory() {
     <div className={styles.mainDiv}>
       <div className={styles.mainContainer}>
         <IoCloseCircleOutline className={styles.close} />
-        <p className={styles.message}> Add up to 6 slides </p>
+        <h3 className={styles.heading2}>Add story to feed</h3>
         <div className={styles.slideHeadingsDiv}>
           {slides.map((slide, index) => (
             <div 
@@ -97,7 +98,7 @@ function AddStory() {
           <div className={styles.inputDiv}>
             <b>Heading :</b> <input placeholder="Your heading" value={slides[selectedSlide].heading} onChange={e => handleInputChange("heading", e.target.value)} />
           </div>
-          <div className={styles.inputDiv} style={{ height: "48%" }}>
+          <div className={` ${styles.textareaDiv} ${styles.inputDiv}`} >
             <b>Description :</b>{" "}
             <textarea placeholder="Story Description" value={slides[selectedSlide].description} onChange={e => handleInputChange("description", e.target.value)} />
           </div>
@@ -115,10 +116,12 @@ function AddStory() {
           </div>
           <button type="button" onClick={handlePost}>Post</button>
         </form>
-        <div className={styles.btnDiv}>
-          <button className={styles.green} onClick={goToPrevSlide}>Previous</button>
-          <button className={styles.blue} onClick={goToNextSlide}>Next</button>
-        </div>
+        {isMobile ? '' : 
+         <div className={styles.btnDiv}>
+         <button className={styles.green} onClick={goToPrevSlide}>Previous</button>
+         <button className={styles.blue} onClick={goToNextSlide}>Next</button>
+       </div>}
+       
       </div>
     </div>
   );

@@ -1,0 +1,131 @@
+.mainDiv {
+    position: absolute;
+    height: 100vh;
+    width: 98.7vw;
+    top: 0;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 100;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainContainer {
+    height: 80%;
+    width: 22%;
+    background-color: white;
+    border-radius: 2vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 4%;
+    left: 5%;
+    height: 10%;
+    width: 8%;
+    cursor: pointer;
+    z-index: 999;
+    color: white;
+}
+
+.send {
+    position: absolute;
+    top: 4%;
+    right: 5%;
+    height: 10%;
+    width: 6%;
+    cursor: pointer;
+    z-index: 999;
+    color: white;
+}
+
+.next {
+    position: absolute;
+    top: 50%;
+    right: 20%;
+    height: 6%;
+    width: 5%;
+    cursor: pointer;
+    color: white;
+}
+
+.bookmark {
+    position: absolute;
+    bottom: 2%;
+    left: 12%;
+    height: 6%;
+    width: 4.5%;
+    cursor: pointer;
+    color: white;
+}
+
+.like {
+    position: absolute;
+    bottom: 2%;
+    right: 14%;
+    height: 8%;
+    width: 7%;
+    cursor: pointer;
+    color: white;
+}
+
+.prev {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    height: 6%;
+    width: 5%;
+    cursor: pointer;
+    color: white;
+}
+
+.storiesDiv{
+    height: 84%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: -0;
+}
+
+.contentDiv {
+    height: 25%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    z-index: -0;
+    background: black;
+    color: white;
+    box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.9); /* Adjust the shadow properties as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.contentDiv h3{
+    font-size: 1em;
+    margin-left: 5%;
+    margin-top: 1%;
+}
+
+.contentDiv span{
+    font-size: 0.7em;
+    margin-left: 5%;
+    margin-top: 2%;
+}
+
+.totLike{
+    position: absolute;
+    bottom: 4.5%;
+    right: 5%;
+    cursor: pointer;
+    color: white;
+    font-size: 0.6em;
+}
+
+
