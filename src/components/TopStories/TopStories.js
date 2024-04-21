@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./TopStories.module.css";
+import { FaRegEdit } from "react-icons/fa";
 
 const Story = ({ image, heading, desc }) => {
   return (
@@ -9,6 +10,7 @@ const Story = ({ image, heading, desc }) => {
         <b>{heading}</b> <br />
         {desc}
       </span>
+      <button><FaRegEdit/>Edit</button>
     </div>
   );
 };

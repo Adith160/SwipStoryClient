@@ -17,7 +17,7 @@ function App() {
        {/* {show ?<>
        <Signup/>
        <Login /></>:<AddStory />} */}
-       <ViewStory />
+       {/* <ViewStory /> */}
     </div>
   );
 }
