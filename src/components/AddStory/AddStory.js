@@ -12,7 +12,7 @@ function AddStory() {
   ]);
   const [selectedSlide, setSelectedSlide] = useState(0);
 
-  const categories = ['Medical', 'Fruits', 'World', 'India', 'Movies'];
+  const categories = ['Medical', 'Fruits', 'World', 'India'];
 
   const addSlide = () => {
     if (slides.length < 6) {

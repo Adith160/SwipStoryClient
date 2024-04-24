@@ -7,7 +7,7 @@ import { IoCloseOutline } from "react-icons/io5";
 
 function Header() {
   const isLogin = true;
-  const isMobile = true;
+  const isMobile = false;
   const [ShowProfile, setShowProfile] = useState(false);
   return (
     <div className={styles.mainDiv}>
