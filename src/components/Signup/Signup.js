@@ -1,29 +1,49 @@
 import React, { useState } from "react";
 import styles from "./Signup.module.css";
-import { useDispatch } from "react-redux";
-import { registerUserAsync } from "../../Redux/User/UserSlice"; // Assuming your userSlice is in the specified path
-
-import { BiSolidHide } from "react-icons/bi";
-import { BiShow } from "react-icons/bi";
+import { BiSolidHide, BiShow } from "react-icons/bi";
 import { IoCloseCircleOutline } from "react-icons/io5";
+import { registerUser } from "../../api/auth";
 
-
-function Signup() {
-  const dispatch = useDispatch();
-  const [ShowPassword, setShowPassword] = useState(false);
+function Signup({ setShowSignup, ShowSignup }) {
+  const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    // Dispatch the registerUserAsync action with the username and password
-    dispatch(registerUserAsync({ username, password }));
+    if (!validateField(username)) {
+      setErrorMessage("Please enter a valid username");
+      return;
+    }
+    if (!validateField(password)) {
+      setErrorMessage("Please enter a valid password");
+      return;
+    }
+    try {
+      const response = await registerUser({ username, password });
+      if (response) {
+        localStorage.setItem("token", response.token);
+        localStorage.setItem("name", response.name);
+        setShowSignup(false);
+      }
+    } catch (error) {
+      setErrorMessage("Registration failed. Please try again.");
+    }
+  };
+
+  const validateField = (username) => {
+    // Perform your validation logic here
+    return username.trim() !== "";
   };
 
   return (
     <div className={styles.mainDiv}>
       <div className={styles.mainContainer}>
-        <IoCloseCircleOutline className={styles.close} />
+        <IoCloseCircleOutline
+          className={styles.close}
+          onClick={() => setShowSignup(!ShowSignup)}
+        />
         <h3>Register to SwipTory</h3>
         <form onSubmit={handleRegister}>
           <div className={styles.inputDiv}>
@@ -32,29 +52,29 @@ function Signup() {
               placeholder="Enter username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-            ></input>
+            />
           </div>
           <div className={styles.inputDiv}>
             <b>Password</b>{" "}
             <input
-              type={ShowPassword ? "text" : "password"}
+              type={showPassword ? "text" : "password"}
               placeholder="Enter password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-            ></input>
-            {ShowPassword ? (
+            />
+            {showPassword ? (
               <BiSolidHide
                 className={styles.viewImg}
-                onClick={() => setShowPassword(!ShowPassword)}
+                onClick={() => setShowPassword(!showPassword)}
               />
             ) : (
               <BiShow
                 className={styles.viewImg}
-                onClick={() => setShowPassword(!ShowPassword)}
+                onClick={() => setShowPassword(!showPassword)}
               />
             )}
           </div>
-          <span>Please enter valid username</span>
+          <span>{errorMessage}</span>
           <button type="submit">Register</button>
         </form>
       </div>

@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import styles from "./AddStory.module.css";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
+import { createStory } from "../../api/storyApi"; // Import the createStory API function
 
 function AddStory() {
   const isMobile = true; 
   const [slides, setSlides] = useState([
-    { name: "Slide 1", heading: "", description: "", imageUrl: "", category: "" },
-    { name: "Slide 2", heading: "", description: "", imageUrl: "", category: "" },
-    { name: "Slide 3", heading: "", description: "", imageUrl: "", category: "" }
+    { heading: "", description: "", image: "", category: "" },
+    { heading: "", description: "", image: "", category: "" },
+    { heading: "", description: "", image: "", category: "" }
   ]);
   const [selectedSlide, setSelectedSlide] = useState(0);
 
@@ -18,7 +19,7 @@ function AddStory() {
     if (slides.length < 6) {
       setSlides(prevSlides => [
         ...prevSlides,
-        { name: `Slide ${prevSlides.length + 1}`, heading: "", description: "", imageUrl: "", category: "" }
+        { heading: "", description: "", image: "", category: "" }
       ]);
     }
   };
@@ -53,7 +54,7 @@ function AddStory() {
   };
 
   const validateSlides = () => {
-    if (slides.some(slide => !slide.heading || !slide.description || !slide.imageUrl || !slide.category)) {
+    if (slides.some(slide => !slide.heading || !slide.description || !slide.image || !slide.category)) {
       toast.error("All fields of all slides must be filled.", { autoClose: 2000 });
       return false;
     }
@@ -65,10 +66,15 @@ function AddStory() {
     return true;
   };
 
-  const handlePost = () => {
+  const handlePost = async () => {
     if (validateSlides()) {
-      localStorage.setItem("slidesData", JSON.stringify(slides));
-      toast.success("Slides data stored successfully.", { autoClose: 2000 });
+      try {
+        await createStory({ story: slides, category: slides[0].category });
+        toast.success("Story added successfully.", { autoClose: 2000 });
+      } catch (error) {
+        console.error("Error adding story:", error);
+        toast.error("Failed to add story. Please try again later.", { autoClose: 2000 });
+      }
     }
   };
 
@@ -84,7 +90,7 @@ function AddStory() {
               className={`${styles.slide} ${selectedSlide === index ? styles.selectedSlide : ""}`} 
               onClick={() => setSelectedSlide(index)}
             >
-              {slide.name}
+              Slide {index + 1}
               {index > 2 && <IoCloseCircleOutline className={styles.closeSlide} onClick={() => handleCloseSlide(index)} />}
             </div>
           ))}
@@ -103,7 +109,7 @@ function AddStory() {
             <textarea placeholder="Story Description" value={slides[selectedSlide].description} onChange={e => handleInputChange("description", e.target.value)} />
           </div>
           <div className={styles.inputDiv}>
-            <b>Image :</b> <input placeholder="Add Image url" value={slides[selectedSlide].imageUrl} onChange={e => handleInputChange("imageUrl", e.target.value)} />
+            <b>Image :</b> <input placeholder="Add Image url" value={slides[selectedSlide].image} onChange={e => handleInputChange("image", e.target.value)} />
           </div>
           <div className={styles.inputDiv}>
             <b>Category :</b> 
