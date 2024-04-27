@@ -62,7 +62,7 @@ export const getMyStories = async () => {
 
 export const getAllStoriesByCategory = async (category) => {
   try {
-    const reqUrl = `${backendUrl}/story/category?category=${category}`;
+    const reqUrl = `${backendUrl}/story/v1/getStoryByCat?category=${category}`;
     const response = await axios.get(reqUrl);
     return response.data;
   } catch (error) {

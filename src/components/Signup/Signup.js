@@ -4,7 +4,7 @@ import { BiSolidHide, BiShow } from "react-icons/bi";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { registerUser } from "../../api/auth";
 
-function Signup({ setShowSignup, ShowSignup }) {
+function Signup({ setShowSignup, ShowSignup}) {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

@@ -5,9 +5,8 @@ import { IoBookmarkSharp } from "react-icons/io5";
 import { MdOutlineMenu } from "react-icons/md";
 import { IoCloseOutline } from "react-icons/io5";
 
-function Header({ setShowSignup, ShowSignup, setShowLogin, ShowLogin, setShowAddStory, ShowAddStory }) {
+function Header({ setShowSignup, ShowSignup, setShowLogin, ShowLogin, setShowAddStory, ShowAddStory, isMobile }) {
   const [isLogin, setIsLogin] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const [ShowProfile, setShowProfile] = useState(false);
 
   useEffect(() => {
@@ -15,22 +14,6 @@ function Header({ setShowSignup, ShowSignup, setShowLogin, ShowLogin, setShowAdd
     if (name) {
       setIsLogin(true);
     }
-
-    const isMobileDevice = () => {
-      return window.innerWidth <= 768; // You can adjust the threshold as needed
-    };
-
-    setIsMobile(isMobileDevice());
-
-    const handleResize = () => {
-      setIsMobile(isMobileDevice());
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
   }, []);
 
   return (
