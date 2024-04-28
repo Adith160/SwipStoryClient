@@ -12,7 +12,7 @@ function AddStory({ setShowAddStory, ShowAddStory, isMobile }) {
   ]);
   const [selectedSlide, setSelectedSlide] = useState(0);
 
-  const categories = ["Medical", "Fruits", "World", "India"];
+  const categories = ["Medical", "Fruit", "World", "India"];
 
   const addSlide = () => {
     if (slides.length < 6) {
@@ -108,7 +108,8 @@ function AddStory({ setShowAddStory, ShowAddStory, isMobile }) {
           className={styles.close}
           onClick={() => setShowAddStory(!ShowAddStory)}
         />
-        <h3 className={styles.heading2}>Add story to feed</h3>
+       {isMobile ? <h3 className={styles.heading2}>Add story to feed</h3> : 
+       <h3 className={styles.message}>Add upto 6 slides</h3>}
         <div className={styles.slideHeadingsDiv}>
           {slides.map((slide, index) => (
             <div

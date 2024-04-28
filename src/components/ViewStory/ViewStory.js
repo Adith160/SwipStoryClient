@@ -8,18 +8,9 @@ import { FcLike } from "react-icons/fc";
 import { FiSend } from "react-icons/fi";
 import Stories from "react-insta-stories";
 
-function ViewStory() {
+function ViewStory({ setShowStory, storyData }) {
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
   const storiesRef = useRef(null);
-
-  const stories = [
-    "https://cdn.pixabay.com/photo/2018/05/09/06/49/lens-3384657_1280.jpg",
-    "https://cdn.pixabay.com/photo/2015/01/13/02/59/camera-597884_1280.jpg",
-    "https://cdn.pixabay.com/photo/2018/05/09/06/49/lens-3384657_1280.jpg",
-    "https://cdn.pixabay.com/photo/2015/01/13/02/59/camera-597884_1280.jpg",
-    "https://cdn.pixabay.com/photo/2018/05/09/06/49/lens-3384657_1280.jpg",
-    "https://cdn.pixabay.com/photo/2015/01/13/02/59/camera-597884_1280.jpg",
-  ];
 
   const handleStoryEnd = () => {
     setCurrentStoryIndex((prevIndex) => prevIndex + 1);
@@ -39,20 +30,30 @@ function ViewStory() {
     }
   };
 
+  // Ensure storyData is provided and has the 'story' field
+  const stories = storyData?.story || [];
+
+  // Transform stories into the required format for react-insta-stories
+  const formattedStories = stories.map((story) => ({
+    url: story.image,
+    header: story.heading,
+    text: story.description
+  }));
+
   return (
     <div className={styles.mainDiv}>
       {currentStoryIndex > 0 && (
         <GrPrevious className={styles.prev} onClick={goToPrevious} />
       )}
-      {currentStoryIndex < stories.length - 1 && (
+      {currentStoryIndex < formattedStories.length - 1 && (
         <GrNext className={styles.next} onClick={goToNext} />
       )}
       <div className={styles.mainContainer}>
-        <IoCloseSharp className={styles.close} />
+        <IoCloseSharp className={styles.close} onClick={() => setShowStory(false)} />
         <FiSend className={styles.send} />
         <div className={styles.storiesDiv}>
           <Stories
-            stories={stories}
+            stories={formattedStories}
             defaultInterval={3000}
             width={"100%"}
             height={"100%"}
@@ -63,11 +64,8 @@ function ViewStory() {
         </div>
 
         <div className={styles.contentDiv}>
-          <h3>Heading comes here</h3>
-          <span>
-            Inspirational designs, illustrations, and graphic elements from the
-            world’s best designers.
-          </span>
+          <h3>{stories[currentStoryIndex]?.heading}</h3>
+          <span>{stories[currentStoryIndex]?.description}</span>
         </div>
         <FaBookmark className={styles.bookmark} />
         <FcLike className={styles.like} /><p className={styles.totLike}>1025</p>

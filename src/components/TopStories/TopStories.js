@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import styles from "./TopStories.module.css";
 import { FaRegEdit } from "react-icons/fa";
 
-const Story = ({ image, heading, desc }) => {
+const Story = ({ story, openStory, storyData }) => {
+  const { heading, description, image } = story; // Destructuring story object
   return (
-    <div className={styles.storyDiv}>
+    <div className={styles.storyDiv} onClick={() => openStory(storyData)}>
       <img src={image} alt="img" />
       <span>
         <b>{heading}</b> <br />
-        {desc}
+        {description}
       </span>
       <button><FaRegEdit/>Edit</button>
     </div>
@@ -16,9 +17,9 @@ const Story = ({ image, heading, desc }) => {
 };
 
 function TopStories(props) {
-  const { type, stories } = props;
+  const { type, stories, openStory } = props;
   const [showAll, setShowAll] = useState(false);
-
+  
   return (
     <div className={styles.mainDiv}>
       <h2>Top Stories About {type}</h2>
@@ -26,12 +27,12 @@ function TopStories(props) {
         {stories.data && stories.data.length > 0 ? (
           stories.data
             .slice(0, showAll ? stories.data.length : 4)
-            .map((story, index) => (
+            .map((storyGroup, index) => (
               <Story
                 key={index}
-                image={story.image}
-                heading={story.heading}
-                desc={story.desc}
+                story={storyGroup.story[0]} // Load only the first object from each storyGroup
+                openStory={openStory}
+                storyData={storyGroup}
               />
             ))
         ) : (
