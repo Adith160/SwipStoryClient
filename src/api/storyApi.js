@@ -5,7 +5,7 @@ const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 export const createStory = async (storyData) => {
   try {
-    debugger;
+    
     const reqUrl = `${backendUrl}/story/v1/createStory`;
     const token = localStorage.getItem("token");
     if (token) {
@@ -20,7 +20,7 @@ export const createStory = async (storyData) => {
 
 export const updateStory = async (storyId, storyData) => {
   try {
-    const reqUrl = `${backendUrl}/story/update/${storyId}`;
+    const reqUrl = `${backendUrl}/story/v1/updateStory/${storyId}`;
     const token = localStorage.getItem("token");
     if (token) {
       axios.defaults.headers.common["Authorization"] = token;
@@ -34,7 +34,7 @@ export const updateStory = async (storyId, storyData) => {
 
 export const addLikeToStory = async (storyId) => {
   try {
-    const reqUrl = `${backendUrl}/story/like/${storyId}`;
+    const reqUrl = `${backendUrl}/story/v1/addLikeToStory/${storyId}`;
     const token = localStorage.getItem("token");
     if (token) {
       axios.defaults.headers.common["Authorization"] = token;
@@ -48,7 +48,7 @@ export const addLikeToStory = async (storyId) => {
 
 export const getMyStories = async () => {
   try {
-    const reqUrl = `${backendUrl}/story/mine`;
+    const reqUrl = `${backendUrl}/story/v1/getMyStories`;
     const token = localStorage.getItem("token");
     if (token) {
       axios.defaults.headers.common["Authorization"] = token;
@@ -72,9 +72,10 @@ export const getAllStoriesByCategory = async (category) => {
 
 export const getStoryById = async (storyId) => {
   try {
-    const reqUrl = `${backendUrl}/story/${storyId}`;
+    debugger;
+    const reqUrl = `${backendUrl}/story/v1/getStoryById/${storyId}`;
     const response = await axios.get(reqUrl);
-    return response.data;
+    return response.data.data;
   } catch (error) {
     handleApiError(error);
   }
@@ -82,7 +83,8 @@ export const getStoryById = async (storyId) => {
 
 export const addStoryToBookmarks = async (storyId) => {
   try {
-    const reqUrl = `${backendUrl}/bookmark/add/${storyId}`;
+    
+    const reqUrl = `${backendUrl}/story/v1/addBookmark/${storyId}`;
     const token = localStorage.getItem("token");
     if (token) {
       axios.defaults.headers.common["Authorization"] = token;
@@ -96,7 +98,7 @@ export const addStoryToBookmarks = async (storyId) => {
 
 export const getBookmarkedStories = async () => {
   try {
-    const reqUrl = `${backendUrl}/bookmark/mine`;
+    const reqUrl = `${backendUrl}/story/v1/getBookmarks`;
     const token = localStorage.getItem("token");
     if (token) {
       axios.defaults.headers.common["Authorization"] = token;
@@ -105,6 +107,21 @@ export const getBookmarkedStories = async () => {
     return response.data;
   } catch (error) {
     handleApiError(error);
+  }
+};
+
+export const getBookmarkedStoryById = async (storyId) => {
+  try {
+    const reqUrl = `${backendUrl}/story/v1/getBookmarkedStoryById/${storyId}`;
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = token;
+    }
+    
+    const response = await axios.get(reqUrl);
+    return { exists: response.data.exists };
+  } catch (error) {
+    return { exists: false };
   }
 };
 

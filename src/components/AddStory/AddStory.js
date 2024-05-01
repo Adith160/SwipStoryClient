@@ -2,9 +2,16 @@ import React, { useState } from "react";
 import styles from "./AddStory.module.css";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
-import { createStory } from "../../api/storyApi"; // Import the createStory API function
+import { createStory, getStoryById, updateStory } from "../../api/storyApi";
 
-function AddStory({ setShowAddStory, ShowAddStory, isMobile }) {
+function AddStory({
+  setShowAddStory,
+  ShowAddStory,
+  isMobile,
+  rerenderHome,
+  EditStory,
+  StoryId,
+}) {
   const [slides, setSlides] = useState([
     { heading: "", description: "", image: "", category: "" },
     { heading: "", description: "", image: "", category: "" },
@@ -57,7 +64,7 @@ function AddStory({ setShowAddStory, ShowAddStory, isMobile }) {
 
   const validateSlides = () => {
     // Check if there are exactly 3 slides
-    if (slides.length !== 3) {
+    if (slides.length < 3) {
       toast.error("Please fill exactly 3 slides.", { autoClose: 2000 });
       return false;
     }
@@ -92,6 +99,7 @@ function AddStory({ setShowAddStory, ShowAddStory, isMobile }) {
         await createStory({ story: slides, category: slides[0].category });
         setShowAddStory(!ShowAddStory);
         toast.success("Story added successfully.", { autoClose: 2000 });
+        rerenderHome();
       } catch (error) {
         console.error("Error adding story:", error);
         toast.error("Failed to add story. Please try again later.", {
@@ -108,8 +116,11 @@ function AddStory({ setShowAddStory, ShowAddStory, isMobile }) {
           className={styles.close}
           onClick={() => setShowAddStory(!ShowAddStory)}
         />
-       {isMobile ? <h3 className={styles.heading2}>Add story to feed</h3> : 
-       <h3 className={styles.message}>Add upto 6 slides</h3>}
+        {isMobile ? (
+          <h3 className={styles.heading2}>Add story to feed</h3>
+        ) : (
+          <h3 className={styles.message}>Add upto 6 slides</h3>
+        )}
         <div className={styles.slideHeadingsDiv}>
           {slides.map((slide, index) => (
             <div

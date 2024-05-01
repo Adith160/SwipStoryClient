@@ -4,13 +4,14 @@ import { BiSolidHide, BiShow } from "react-icons/bi";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { loginUser } from "../../api/auth";
 
-function Login({ setShowLogin, ShowLogin }) {
+function Login({ setShowLogin, ShowLogin, setIsLogin, rerenderHome }) {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogin = async (e) => {
+    setErrorMessage('');
     e.preventDefault();
     if (!validateField(username)) {
       setErrorMessage("Please enter a valid username");
@@ -27,6 +28,8 @@ function Login({ setShowLogin, ShowLogin }) {
         localStorage.setItem("token", response.token);
         localStorage.setItem("name", response.name);
         setShowLogin(!ShowLogin)
+        setIsLogin(true);
+        rerenderHome();
         // Redirect to dashboard or set authentication state
       } else {
         setErrorMessage("Login failed. Please check your credentials.");
@@ -56,6 +59,7 @@ function Login({ setShowLogin, ShowLogin }) {
               placeholder="Enter username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              name="username"
             ></input>
           </div>
           <div className={styles.inputDiv}>
@@ -65,6 +69,8 @@ function Login({ setShowLogin, ShowLogin }) {
               placeholder="Enter password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              autoComplete="off"
             ></input>
             {showPassword ? (
               <BiSolidHide

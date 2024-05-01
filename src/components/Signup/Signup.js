@@ -4,7 +4,7 @@ import { BiSolidHide, BiShow } from "react-icons/bi";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { registerUser } from "../../api/auth";
 
-function Signup({ setShowSignup, ShowSignup}) {
+function Signup({ setShowSignup, ShowSignup, setIsLogin, rerenderHome}) {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -12,6 +12,7 @@ function Signup({ setShowSignup, ShowSignup}) {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setErrorMessage('')
     if (!validateField(username)) {
       setErrorMessage("Please enter a valid username");
       return;
@@ -26,12 +27,18 @@ function Signup({ setShowSignup, ShowSignup}) {
         localStorage.setItem("token", response.token);
         localStorage.setItem("name", response.name);
         setShowSignup(false);
+        setIsLogin(true);
+        rerenderHome();
       }
     } catch (error) {
-      setErrorMessage("Registration failed. Please try again.");
+      if (error.response.status === 409) {
+        setErrorMessage("Username is already taken. Please choose a different one.");
+      } else {
+        setErrorMessage("Registration failed. Please try again.");
+      }
     }
   };
-
+  
   const validateField = (username) => {
     // Perform your validation logic here
     return username.trim() !== "";
@@ -51,6 +58,7 @@ function Signup({ setShowSignup, ShowSignup}) {
             <input
               placeholder="Enter username"
               value={username}
+              name="username"
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
@@ -60,6 +68,8 @@ function Signup({ setShowSignup, ShowSignup}) {
               type={showPassword ? "text" : "password"}
               placeholder="Enter password"
               value={password}
+              name='password'
+              autoComplete="off"
               onChange={(e) => setPassword(e.target.value)}
             />
             {showPassword ? (

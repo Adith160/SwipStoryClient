@@ -214,6 +214,7 @@
 
     .inputDiv textarea {
       height: 60%;
+      margin-top: 1vh;
     }
     
     .inputDiv select {

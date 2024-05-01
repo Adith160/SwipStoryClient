@@ -1,24 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./Header.module.css";
 import Profile from "../../assets/images/Calm and confident.png";
 import { IoBookmarkSharp } from "react-icons/io5";
 import { MdOutlineMenu } from "react-icons/md";
 import { IoCloseOutline } from "react-icons/io5";
 
-function Header({ setShowSignup, ShowSignup, setShowLogin, ShowLogin, setShowAddStory, ShowAddStory, isMobile }) {
-  const [isLogin, setIsLogin] = useState(false);
+function Header({
+  setShowSignup,
+  ShowSignup,
+  setShowLogin,
+  ShowLogin,
+  setShowAddStory,
+  ShowAddStory,
+  isMobile,
+  isLogin,
+  setIsLogin,
+  rerenderHome,
+  ShowBookmark,
+  setShowBookmark,
+}) {
   const [ShowProfile, setShowProfile] = useState(false);
 
-  useEffect(() => {
-    const name = localStorage.getItem("name");
-    if (name) {
-      setIsLogin(true);
-    }
-  }, []);
-
+  const toggleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("name");
+    setIsLogin(false);
+    rerenderHome();
+    setShowProfile(false);
+  };
   return (
     <div className={styles.mainDiv}>
-      <span>SwipTory</span>
+      <span onClick={() => setShowBookmark(false)}>SwipTory</span>
       {isMobile ? (
         <div className={styles.rightDiv}>
           <MdOutlineMenu
@@ -38,12 +50,35 @@ function Header({ setShowSignup, ShowSignup, setShowLogin, ShowLogin, setShowAdd
                       onClick={() => setShowProfile(!ShowProfile)}
                     />
                   </div>
-                  <button className={styles.clrPink}>Your Story</button>
-                  <button className={styles.clrPink} onClick={() => setShowAddStory(!ShowAddStory)}>Add Story</button>
-                  <button className={styles.clrPink}>
+                  <button
+                    className={styles.clrPink}
+                    onClick={() => {
+                      setShowBookmark(false);
+                      setShowProfile(false);
+                      rerenderHome();
+                    }}
+                  >
+                    Your Story
+                  </button>
+                  <button
+                    className={styles.clrPink}
+                    onClick={() => {
+                      setShowAddStory(!ShowAddStory);
+                      setShowProfile(false);
+                    }}
+                  >
+                    Add Story
+                  </button>
+                  <button
+                    className={styles.clrPink}
+                    onClick={() => {
+                      setShowBookmark(true);
+                      setShowProfile(false);
+                    }}
+                  >
                     <IoBookmarkSharp /> Bookmarks
                   </button>
-                  <button onClick={() => setShowLogin(!ShowLogin)}>Logout</button>
+                  <button onClick={() => toggleLogout()}>Logout</button>
                 </>
               ) : (
                 <>
@@ -51,10 +86,22 @@ function Header({ setShowSignup, ShowSignup, setShowLogin, ShowLogin, setShowAdd
                     className={styles.closeIcon2}
                     onClick={() => setShowProfile(!ShowProfile)}
                   />
-                  <button className={styles.clrBlue} onClick={() => setShowLogin(!ShowLogin)}>
+                  <button
+                    className={styles.clrBlue}
+                    onClick={() => {
+                      setShowLogin(!ShowLogin);
+                      setShowProfile(false);
+                    }}
+                  >
                     Log In
                   </button>
-                  <button className={styles.clrPink} onClick={() => setShowSignup(!ShowSignup)}>
+                  <button
+                    className={styles.clrPink}
+                    onClick={() => {
+                      setShowSignup(!ShowSignup);
+                      setShowProfile(false);
+                    }}
+                  >
                     Register Now
                   </button>
                 </>
@@ -64,10 +111,18 @@ function Header({ setShowSignup, ShowSignup, setShowLogin, ShowLogin, setShowAdd
         </div>
       ) : isLogin ? (
         <div className={styles.rightDiv}>
-          <button className={styles.clrPink}>
+          <button
+            className={styles.clrPink}
+            onClick={() => setShowBookmark(!ShowBookmark)}
+          >
             <IoBookmarkSharp /> Bookmarks
           </button>
-          <button className={styles.clrPink} onClick={() => setShowAddStory(!ShowAddStory)}>Add Story</button>
+          <button
+            className={styles.clrPink}
+            onClick={() => setShowAddStory(!ShowAddStory)}
+          >
+            Add Story
+          </button>
           <img src={Profile} alt="img" />
           <MdOutlineMenu
             style={{ cursor: "pointer", height: "4vh", width: "4vh" }}
@@ -77,16 +132,28 @@ function Header({ setShowSignup, ShowSignup, setShowLogin, ShowLogin, setShowAdd
           {ShowProfile && (
             <div className={styles.menu}>
               <span>AK</span>
-              <button onClick={() => setShowLogin(!ShowLogin)}>Logout</button>
+              <button onClick={() => toggleLogout()}>Logout</button>
             </div>
           )}
         </div>
       ) : (
         <div className={styles.rightDiv}>
-          <button className={styles.clrPink} onClick={() => setShowSignup(!ShowSignup)}>
+          <button
+            className={styles.clrPink}
+            onClick={() => {
+              setShowProfile(false);
+              setShowSignup(!ShowSignup);
+            }}
+          >
             Register Now
           </button>
-          <button className={styles.clrBlue} onClick={() => setShowLogin(!ShowLogin)}>
+          <button
+            className={styles.clrBlue}
+            onClick={() => {
+              setShowProfile(false);
+              setShowLogin(!ShowLogin);
+            }}
+          >
             Sign In
           </button>
         </div>

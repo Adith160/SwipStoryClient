@@ -33,6 +33,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    z-index: 1000;
 }
 
 .mainDiv button{
@@ -44,6 +45,9 @@
     color: white;
     cursor: pointer;
     font-size: 0.8em;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .menu button{
