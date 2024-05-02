@@ -60,6 +60,7 @@ function App() {
         rerenderHome={rerenderHome}
         ShowBookmark={ShowBookmark}
         setShowBookmark={setShowBookmark}
+        setEditStory={setEditStory}
       />
       <Home
         key={rerender} // Key prop to force re-rendering

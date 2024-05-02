@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./AddStory.module.css";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
@@ -20,6 +20,22 @@ function AddStory({
   const [selectedSlide, setSelectedSlide] = useState(0);
 
   const categories = ["Medical", "Fruit", "World", "India"];
+
+  useEffect(() => {
+    if (EditStory && StoryId) {
+      const fetchStory = async () => {
+        try {
+          const storyData = await getStoryById(StoryId);
+          if (storyData) {
+            setSlides(storyData.story);
+          }
+        } catch (error) {
+          console.error("Error fetching story:", error);
+        }
+      };
+      fetchStory();
+    }
+  }, [EditStory, StoryId]);
 
   const addSlide = () => {
     if (slides.length < 6) {
@@ -96,18 +112,32 @@ function AddStory({
   const handlePost = async () => {
     if (validateSlides()) {
       try {
-        await createStory({ story: slides, category: slides[0].category });
+        if (EditStory) {
+          // Remove _id from each slide
+          const updatedSlides = slides.map(({ _id, ...rest }) => rest);
+          await updateStory(
+             StoryId ,
+            {
+              story: updatedSlides,
+              category: updatedSlides[0].category,
+            }
+          );
+          toast.success("Story updated successfully.", { autoClose: 2000 });
+        } else {
+          await createStory({ story: slides, category: slides[0].category });
+          toast.success("Story added successfully.", { autoClose: 2000 });
+        }
         setShowAddStory(!ShowAddStory);
-        toast.success("Story added successfully.", { autoClose: 2000 });
         rerenderHome();
       } catch (error) {
-        console.error("Error adding story:", error);
-        toast.error("Failed to add story. Please try again later.", {
+        console.error("Error adding/updating story:", error);
+        toast.error("Failed to add/update story. Please try again later.", {
           autoClose: 2000,
         });
       }
     }
   };
+  
 
   return (
     <div className={styles.mainDiv}>
@@ -152,6 +182,7 @@ function AddStory({
               placeholder="Your heading"
               value={slides[selectedSlide].heading}
               onChange={(e) => handleInputChange("heading", e.target.value)}
+              name="heading"
             />
           </div>
           <div className={` ${styles.textareaDiv} ${styles.inputDiv}`}>
@@ -160,6 +191,7 @@ function AddStory({
               placeholder="Story Description"
               value={slides[selectedSlide].description}
               onChange={(e) => handleInputChange("description", e.target.value)}
+              name="Desc"
             />
           </div>
           <div className={styles.inputDiv}>
@@ -168,6 +200,7 @@ function AddStory({
               placeholder="Add Image url"
               value={slides[selectedSlide].image}
               onChange={(e) => handleInputChange("image", e.target.value)}
+              name="image"
             />
           </div>
           <div className={styles.inputDiv}>
@@ -175,6 +208,7 @@ function AddStory({
             <select
               value={slides[selectedSlide].category}
               onChange={(e) => handleInputChange("category", e.target.value)}
+              name="cat"
             >
               <option value="" disabled>
                 Select category
@@ -187,7 +221,7 @@ function AddStory({
             </select>
           </div>
           <button type="button" onClick={handlePost}>
-            Post
+            {EditStory ? "Update" : "Post"}
           </button>
         </form>
         {isMobile ? (

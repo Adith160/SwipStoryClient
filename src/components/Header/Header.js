@@ -18,6 +18,7 @@ function Header({
   rerenderHome,
   ShowBookmark,
   setShowBookmark,
+  setEditStory
 }) {
   const [ShowProfile, setShowProfile] = useState(false);
 
@@ -65,6 +66,7 @@ function Header({
                     onClick={() => {
                       setShowAddStory(!ShowAddStory);
                       setShowProfile(false);
+                      setEditStory(false)
                     }}
                   >
                     Add Story
@@ -119,7 +121,7 @@ function Header({
           </button>
           <button
             className={styles.clrPink}
-            onClick={() => setShowAddStory(!ShowAddStory)}
+            onClick={() => {setShowAddStory(!ShowAddStory); setEditStory(false)}}
           >
             Add Story
           </button>

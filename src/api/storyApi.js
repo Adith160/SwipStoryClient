@@ -5,7 +5,7 @@ const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 export const createStory = async (storyData) => {
   try {
-    
+    debugger;
     const reqUrl = `${backendUrl}/story/v1/createStory`;
     const token = localStorage.getItem("token");
     if (token) {
@@ -25,6 +25,7 @@ export const updateStory = async (storyId, storyData) => {
     if (token) {
       axios.defaults.headers.common["Authorization"] = token;
     }
+    debugger
     const response = await axios.put(reqUrl, storyData);
     return response.data;
   } catch (error) {
@@ -72,7 +73,6 @@ export const getAllStoriesByCategory = async (category) => {
 
 export const getStoryById = async (storyId) => {
   try {
-    debugger;
     const reqUrl = `${backendUrl}/story/v1/getStoryById/${storyId}`;
     const response = await axios.get(reqUrl);
     return response.data.data;
