@@ -6,6 +6,7 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import AddStory from "./components/AddStory/AddStory";
 import ViewStory from "./components/ViewStory/ViewStory";
+import Spinner from "./components/Spinner/Spinner";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -19,6 +20,7 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [ShowBookmark, setShowBookmark] = useState(false);
   const [rerender, setRerender] = useState(false);
+  const [ShowSpinner, setShowSpinner] = useState(false);
 
   useEffect(() => {
     // Check if localStorage has 'name'
@@ -58,7 +60,6 @@ function App() {
         isLogin={isLogin}
         setIsLogin={setIsLogin}
         rerenderHome={rerenderHome}
-        ShowBookmark={ShowBookmark}
         setShowBookmark={setShowBookmark}
         setEditStory={setEditStory}
       />
@@ -73,6 +74,7 @@ function App() {
         ShowBookmark={ShowBookmark}
         setShowBookmark={setShowBookmark}
         isMobile={isMobile}
+        setShowSpinner={setShowSpinner}
       />
       {ShowSignup && (
         <Signup
@@ -80,6 +82,7 @@ function App() {
           ShowSignup={ShowSignup}
           setIsLogin={setIsLogin}
           rerenderHome={rerenderHome}
+          setShowSpinner={setShowSpinner}
         />
       )}
       {ShowLogin && (
@@ -88,6 +91,7 @@ function App() {
           ShowLogin={ShowLogin}
           setIsLogin={setIsLogin}
           rerenderHome={rerenderHome}
+          setShowSpinner={setShowSpinner}
         />
       )}
       {ShowAddStory && (
@@ -98,6 +102,7 @@ function App() {
           StoryId={StoryId}
           EditStory={EditStory}
           rerenderHome={rerenderHome}
+          setShowSpinner={setShowSpinner}
         />
       )}
       <BrowserRouter>
@@ -106,6 +111,8 @@ function App() {
           <Route path="/viewstory/:storyId" element={<ViewStory />} />
         </Routes>
       </BrowserRouter>
+
+      {ShowSpinner && <Spinner />}
     </div>
   );
 }

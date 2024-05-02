@@ -11,6 +11,7 @@ function AddStory({
   rerenderHome,
   EditStory,
   StoryId,
+  setShowSpinner
 }) {
   const [slides, setSlides] = useState([
     { heading: "", description: "", image: "", category: "" },
@@ -25,17 +26,20 @@ function AddStory({
     if (EditStory && StoryId) {
       const fetchStory = async () => {
         try {
+          setShowSpinner(true);
           const storyData = await getStoryById(StoryId);
           if (storyData) {
             setSlides(storyData.story);
           }
+          setShowSpinner(false);
         } catch (error) {
-          console.error("Error fetching story:", error);
+          setShowSpinner(true);
+          toast.error("Error fetching story:", error);
         }
       };
       fetchStory();
     }
-  }, [EditStory, StoryId]);
+  }, [EditStory, StoryId, setShowSpinner]);
 
   const addSlide = () => {
     if (slides.length < 6) {
@@ -112,6 +116,7 @@ function AddStory({
   const handlePost = async () => {
     if (validateSlides()) {
       try {
+        setShowSpinner(true);
         if (EditStory) {
           // Remove _id from each slide
           const updatedSlides = slides.map(({ _id, ...rest }) => rest);
@@ -127,17 +132,17 @@ function AddStory({
           await createStory({ story: slides, category: slides[0].category });
           toast.success("Story added successfully.", { autoClose: 2000 });
         }
+        setShowSpinner(false);
         setShowAddStory(!ShowAddStory);
         rerenderHome();
       } catch (error) {
-        console.error("Error adding/updating story:", error);
+        setShowSpinner(false);
         toast.error("Failed to add/update story. Please try again later.", {
           autoClose: 2000,
         });
       }
     }
   };
-  
 
   return (
     <div className={styles.mainDiv}>

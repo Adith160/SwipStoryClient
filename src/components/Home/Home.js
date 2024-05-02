@@ -1,46 +1,63 @@
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
-import Categories from '../Categories/Categories';
-import TopStories from '../TopStories/TopStories';
-import styles from './Home.module.css';
-import { getAllStoriesByCategory, getMyStories, getBookmarkedStories } from '../../api/storyApi';
-import ViewStory from '../../components/ViewStory/ViewStory';
+import React, { useEffect, useState, useMemo, useCallback } from "react";
+import Categories from "../Categories/Categories";
+import TopStories from "../TopStories/TopStories";
+import styles from "./Home.module.css";
+import { toast } from "react-toastify";
+import {
+  getAllStoriesByCategory,
+  getMyStories,
+  getBookmarkedStories,
+} from "../../api/storyApi";
+import ViewStory from "../../components/ViewStory/ViewStory";
 
-function Home({ setShowAddStory, ShowAddStory, setEditStory, setStoryId, isLogin, ShowBookmark, isMobile,setShowLogin }) {
-  const categories = useMemo(() => ['Medical', 'Fruit', 'India', 'World'], []);
+function Home({
+  setShowAddStory,
+  ShowAddStory,
+  setEditStory,
+  setStoryId,
+  isLogin,
+  ShowBookmark,
+  isMobile,
+  setShowLogin,
+  setShowSpinner,
+}) {
+  const categories = useMemo(() => ["Medical", "Fruit", "India", "World"], []);
   const [storiesData, setStoriesData] = useState([]);
   const [showStory, setShowStory] = useState(false);
   const [selectedStoryId, setSelectedStoryId] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [myStories, setMyStories] = useState([]);
 
   const fetchStories = useCallback(async () => {
     try {
-      const promises = categories.map(category => getAllStoriesByCategory(category));
+      const promises = categories.map((category) =>
+        getAllStoriesByCategory(category)
+      );
       const responses = await Promise.all(promises);
       setStoriesData(responses);
     } catch (error) {
-      console.error('Error fetching stories:', error);
-      // Handle error
+      toast.error("Error fetching stories:", error);
     }
   }, [categories]);
 
   const fetchBookmarkedStories = useCallback(async () => {
     try {
+      setShowSpinner(true);
       const bookmarkedStories = await getBookmarkedStories();
       setStoriesData([bookmarkedStories]);
+      setShowSpinner(false);
     } catch (error) {
-      console.error('Error fetching bookmarked stories:', error);
-      // Handle error
+      toast.error("Error fetching bookmarked stories:", error);
+      setShowSpinner(false);
     }
-  }, []);
+  }, [setShowSpinner]);
 
   const fetchMyStories = async () => {
     try {
       const myStoriesData = await getMyStories();
       setMyStories(myStoriesData);
     } catch (error) {
-      console.error('Error fetching my stories:', error);
-      // Handle error
+      toast.error("Error fetching my stories:", error);
     }
   };
 
@@ -83,16 +100,46 @@ function Home({ setShowAddStory, ShowAddStory, setEditStory, setStoryId, isLogin
   return (
     <div className={styles.mainDiv}>
       {!ShowBookmark && <Categories filterStories={filterStoriesByCategory} />}
-      {isLogin && !ShowBookmark && selectedCategory === 'All' && (
-        <TopStories type="My Stories" stories={myStories} openStory={openStory} setShowAddStory={setShowAddStory} ShowAddStory={ShowAddStory} setEditStory={setEditStory} setStoryId={setStoryId} refreshData={refreshData} isMobile={isMobile} />
+      {isLogin && !ShowBookmark && selectedCategory === "All" && (
+        <TopStories
+          type="My Stories"
+          stories={myStories}
+          openStory={openStory}
+          setShowAddStory={setShowAddStory}
+          ShowAddStory={ShowAddStory}
+          setEditStory={setEditStory}
+          setStoryId={setStoryId}
+          refreshData={refreshData}
+          isMobile={isMobile}
+        />
       )}
       {storiesData.map((stories, index) => {
-        if (selectedCategory === 'All' || selectedCategory === categories[index]) {
-          return <TopStories key={index} type={ShowBookmark ? 'Bookmarks' : categories[index]} stories={stories} openStory={openStory} isMobile={isMobile} />;
+        if (
+          selectedCategory === "All" ||
+          selectedCategory === categories[index]
+        ) {
+          return (
+            <TopStories
+              key={index}
+              type={ShowBookmark ? "Bookmarks" : categories[index]}
+              stories={stories}
+              openStory={openStory}
+              isMobile={isMobile}
+            />
+          );
         }
         return null;
       })}
-      {showStory && <ViewStory storyId={selectedStoryId} setShowStory={setShowStory} isMobile={isMobile} setShowLogin={setShowLogin} isLogin={isLogin}/>}
+      {showStory && (
+        <ViewStory
+          storyId={selectedStoryId}
+          setShowStory={setShowStory}
+          isMobile={isMobile}
+          setShowLogin={setShowLogin}
+          isLogin={isLogin}
+          setShowSpinner={setShowSpinner}
+        />
+      )}
     </div>
   );
 }

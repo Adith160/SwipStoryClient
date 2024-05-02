@@ -16,7 +16,10 @@ import {
 } from "../../api/storyApi";
 
 const ViewStory = forwardRef(
-  ({ setShowStory, isMobile, storyId, setShowLogin, isLogin }, ref) => {
+  (
+    { setShowStory, isMobile, storyId, setShowLogin, isLogin, setShowSpinner },
+    ref
+  ) => {
     const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
     const [liked, setLiked] = useState(false);
     const [bookmarked, setBookmarked] = useState(false);
@@ -28,19 +31,22 @@ const ViewStory = forwardRef(
       const fetchData = async () => {
         try {
           if (storyId) {
+            setShowSpinner(true);
             const { exists } = await getBookmarkedStoryById(storyId);
             setBookmarked(exists);
             const response = await getStoryById(storyId);
             setStoryData(response);
             setLikeCount(response.likes);
+            setShowSpinner(false);
           }
         } catch (error) {
-          console.error("Error fetching story data:", error);
+          toast.error("Error fetching story data:", error);
+          setShowSpinner(false);
         }
       };
 
       fetchData();
-    }, [storyId]);
+    }, [storyId, setShowSpinner]);
 
     const handleStoryEnd = () => {
       setCurrentStoryIndex((prevIndex) => prevIndex + 1);
@@ -66,11 +72,14 @@ const ViewStory = forwardRef(
       }
       if (storyData && storyData._id) {
         try {
+          setShowSpinner(true);
           await addLikeToStory(storyData._id);
           liked ? setLiked(false) : setLiked(true);
           setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1)); // Increment like count
+          setShowSpinner(false);
         } catch (error) {
-          console.error("Error adding like:", error);
+          toast.error("Error adding like:", error);
+          setShowSpinner(false);
         }
       }
     };
@@ -81,10 +90,13 @@ const ViewStory = forwardRef(
       }
       if (storyData && storyData._id) {
         try {
+          setShowSpinner(true);
           await addStoryToBookmarks(storyData._id);
           setBookmarked(!bookmarked);
+          setShowSpinner(false);
         } catch (error) {
-          console.error("Error adding bookmark:", error);
+          toast.error("Error adding bookmark:", error);
+          setShowSpinner(false);
         }
       }
     };

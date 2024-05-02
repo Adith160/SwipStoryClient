@@ -16,7 +16,6 @@ function Header({
   isLogin,
   setIsLogin,
   rerenderHome,
-  ShowBookmark,
   setShowBookmark,
   setEditStory
 }) {
@@ -115,7 +114,7 @@ function Header({
         <div className={styles.rightDiv}>
           <button
             className={styles.clrPink}
-            onClick={() => setShowBookmark(!ShowBookmark)}
+            onClick={() => setShowBookmark(true)}
           >
             <IoBookmarkSharp /> Bookmarks
           </button>
